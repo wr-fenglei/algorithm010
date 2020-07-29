@@ -1,6 +1,6 @@
 import UIKit
 
-func f(_ n: Int) -> Int {
+func f1(_ n: Int) -> Int {
     guard n > 1 else { return n }
     
     let count = n + 1
@@ -11,7 +11,7 @@ func f(_ n: Int) -> Int {
     return list[n]
 }
 
-func f1(_ n: Int) -> Int {
+func f2(_ n: Int) -> Int {
     guard n > 1 else { return n }
     var a = 0
     var b = 1
@@ -23,25 +23,25 @@ func f1(_ n: Int) -> Int {
     return b
 }
 
-func f2(_ n: Int) -> Int {
+func f3(_ n: Int) -> Int {
     guard n > 1 else { return n }
     return f2(n - 1) + f2(n - 2)
 }
 
-func f3(_ n: Int) -> Int {
-    var result = Array(repeating: 0, count: n + 1)
+func f4(_ n: Int) -> Int {
+    guard n > 1 else { return n }
+    var result = [0, 1] + repeatElement(-1, count: n - 1)
     return helper(n, &result)
 }
 
 func helper(_ n: Int, _ result: inout [Int]) -> Int {
-    if n <= 0 { return 0 }
-    if n == 1 { return 1 }
-    if result[n] != 0 { return result[n] }
-    result[n] = helper(n - 1, &result) + helper(n - 2, &result)
-    return result[n]
+    if result[n] != -1 { return result[n] }
+    let sum = helper(n - 1, &result) + helper(n - 2, &result)
+    result[n] = sum
+    return sum
 }
 
 // 0 1 1 2 3 5 8 13 21 34 55
 for i in 0...10 {
-    print(f3(i))
+    print(f4(i))
 }
