@@ -100,7 +100,7 @@ class Solution4 {
         var map = [Int: Int]()
         
         for i in 0..<nums.count {
-            // the complement of nums[i] either in the map, or in the subsequent of the nums.
+            // the complement of nums[i] is either in the map, or in the subsequent of the nums.
             // so, when you miss nums[i], you can look back to check by it's complement.
             if let j = map[target - nums[i]] { return [i, j] }
             map[nums[i]] = i

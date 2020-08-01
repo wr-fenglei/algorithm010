@@ -42,48 +42,28 @@ public class ListNode {
     }
 }
 
-// O(n^2) 因为 ListNode 没法用 hash
+// O(n^2)
 class Solution1 {
     func hasCycle(_ head: ListNode?) -> Bool {
         var nodes = [ListNode]()
         
         var current = head
         while let node = current {
+            // ListNode 未实现 hash
             if nodes.contains(where: { $0 === node }) { return true }
             nodes.append(node)
             current = current?.next
         }
-        
-        return false
-    }
-}
-
-// O(n)
-// ⚠️ 此方法会破坏原链表
-class Solution2 {
-    func hasCycle(_ head: ListNode?) -> Bool {
-        var current = head
-        while current != nil {
-            if current?.next === head { return true }
-            
-            let next = current?.next
-            current?.next = head
-            current = next
-        }
-        
         return false
     }
 }
 
 /**
  O(n)
- 
  if there's a circle, the faster one will finally "catch" the slower one.
- (the distance between these 2 pointers will decrease one every time.)
- 
  if there's no circle, the faster runner will reach the end of linked list. (NULL)
  */
-class Solution3 {
+class Solution2 {
     func hasCycle(_ head: ListNode?) -> Bool {
         if head == nil || head?.next == nil { return false }
         
@@ -106,5 +86,5 @@ for i in 0..<nodes.count - 1 {
 nodes.last?.next = nodes[1]
 
 let input = nodes.first
-let output = Solution3().hasCycle(input)
+let output = Solution2().hasCycle(input)
 print(output)

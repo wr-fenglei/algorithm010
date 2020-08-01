@@ -62,6 +62,7 @@ class Solution2 {
         
         var map = [Int: Int]()
         for i in 0..<sorted.count {
+            // 重复数字使用最后那个下标，后面判断 k 的下标范围时也是以最后出现的下标为准，如果出现 [-2, 1, 1] 这种情况，那么 j 会是前面的 1 ，k 会是后面的 1
             map[sorted[i]] = i
         }
         
@@ -90,6 +91,9 @@ class Solution2 {
 class Solution3 {
     func threeSum(_ nums: [Int]) -> [[Int]] {
         if nums.count < 3 { return [] }
+        // j 在遍历时不能跳过重复数字，因为这个方案是用后面的数去 set 中找前面的数，跳过的话会漏解
+        // 比如 [-2, 1, 1] 这种情况，那么 j 会是后面的 1 ，set 中会是前面的 1
+        // 但也会出现重复解，比如 j 后面还是 1 ，所以 result 要用 Set 来去重
         var result = Set<[Int]>()
         
         let sorted = nums.sorted()
@@ -102,6 +106,7 @@ class Solution3 {
             var set = Set<Int>()
             
             for j in (i + 1)..<sorted.count {
+                
                 if set.contains(target - sorted[j]) {
                     result.insert([sorted[i], sorted[j], target - sorted[j]])
                 } else {
@@ -199,7 +204,7 @@ class Solution4 {
 //let input: [Int] = []
 //let input: [Int] = [-1, 0, 1, 2, -1, -4] // [-4, -1, -1, 0, 1, 2]
 let input: [Int] = [-4, -2, 1, -5, -4, -4, 4, -2, 0, 4, 0, -2, 3, 1, -5, 0] // [-5, -5, -4, -4, -4, -2, -2, -2, 0, 0, 0, 1, 1, 3, 4, 4]
-let output = Solution4().threeSum(input)
+let output = Solution3().threeSum(input)
 print(output)
 
 // []

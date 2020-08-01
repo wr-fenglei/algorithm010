@@ -53,15 +53,14 @@ class Solution2 {
             // 哪边矮，就移动哪边，因为移动高的那边只会把值减小
             //（最小高度由矮的那边决定了，不可能再高了，移动高的那边只会把长度缩短，而移动矮的那边还是可能出现更大值的）
             // 短板是制约总量的重要因素，所以需要不断的找短板，替换短板，这个过程中会找到最优解
-            var minHeight = height[i]
+            var area = height[i] * (j - i)
             if height[i] < height[j] {
                 i += 1
             } else {
-                minHeight = height[j]
+                area = height[j] * (j - i)
                 j -= 1
             }
-            // 为了减少一次高度比较，事前移动了 i 或 j ，所以计算时要把距离加回去
-            maxArea = max(maxArea, (j - i + 1) * minHeight)
+            maxArea = max(maxArea, area)
         }
         return maxArea
     }

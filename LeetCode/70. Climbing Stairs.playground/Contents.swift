@@ -38,18 +38,29 @@
 
 /**
  f(4) 分解为
- 走一步：f(3) + 走两步：(f2)
+ 前面一步的走法：f(3) + 前面两步的走法：(f2)
  
  f(3) 分解为
- 走一步：f(2) + 走两步：f(1)
- 
- f(2) 分解为
- 走一步：f(1) + 走两步：f(0)
+ 前面一步的走法：f(2) + 前面两步的走法：(f1)
  
  f(2) = 2
  f(1) = 1
+ f(0) = 0
  */
 class Solution1 {
+    func climbStairs(_ n: Int) -> Int {
+        if n < 3 { return n }
+        var a = 1
+        var b = 2
+        for _ in 3...n {
+            b = b + a
+            a = b - a
+        }
+        return b
+    }
+}
+
+class Solution2 {
     func climbStairs(_ n: Int) -> Int {
         if n == 1 { return 1 }
         var cache = [0, 1, 2] + repeatElement(0, count: n - 2)
@@ -64,28 +75,15 @@ class Solution1 {
     }
 }
 
-class Solution2 {
+class Solution3 {
     func climbStairs(_ n: Int) -> Int {
         if n < 3 { return n }
         var ways = [1, 2]
         for _ in 3...n {
-            let last2 = ways.removeFirst()
-            ways.append(ways.last! + last2)
+            let lastLast = ways.removeFirst()
+            ways.append(ways.last! + lastLast)
         }
         return ways.last!
-    }
-}
-
-class Solution3 {
-    func climbStairs(_ n: Int) -> Int {
-        if n < 3 { return n }
-        var a = 1
-        var b = 2
-        for _ in 3...n {
-            b = b + a
-            a = b - a
-        }
-        return b
     }
 }
 

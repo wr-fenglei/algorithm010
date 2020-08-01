@@ -31,53 +31,6 @@ public class ListNode {
     }
 }
 
-/**
- O(n^2)
- 1-2-3-4-5-nil
-   2-3-4-5-1-nil
-     3-4-5-2-1-nil
-       4-5-3-2-1-nil
-         5-4-3-2-1-nil
- */
-class Solution1 {
-    func reverseList(_ head: ListNode?) -> ListNode? {
-        // no need to reverse
-        if head == nil || head?.next == nil { return head }
-        
-        var current = head
-        var target = head
-        
-        while target?.next != nil {
-            target = target?.next
-        }
-        
-        let next = current?.next
-        
-        current?.next = nil
-        target?.next = current
-        target = current
-        
-        current = next
-        
-        while current?.next !== target {
-            
-            var tmp = current
-            while tmp?.next !== target {
-                tmp = tmp?.next
-            }
-            
-            let next = current?.next
-            
-            current?.next = target
-            tmp?.next = current
-            target = current
-            
-            current = next
-        }
-        
-        return current
-    }
-}
 
 /**
  O(n)
@@ -87,7 +40,7 @@ class Solution1 {
        4-5-3-2-1-nil
          5-4-3-2-1-nil
  */
-class Solution2 {
+class Solution1 {
     func reverseList(_ head: ListNode?) -> ListNode? {
         // no need to reverse
         if head == nil || head?.next == nil { return head }
@@ -131,7 +84,7 @@ nil<-2<-3<-4<-5
 nil<-1<-2<-3<-4<-5
      1->nil
 */
-class Solution3 {
+class Solution2 {
      func reverseList(_ head: ListNode?) -> ListNode? {
         // no need to reverse
         if head == nil || head?.next == nil { return head }
@@ -155,7 +108,7 @@ class Solution3 {
  4-3-2-1-nil
  5-4-3-2-1-nil
  */
-class Solution4 {
+class Solution3 {
     func reverseList(_ head: ListNode?) -> ListNode? {
         // no need to reverse
         if head == nil || head?.next == nil { return head }
@@ -177,5 +130,5 @@ class Solution4 {
 }
 
 let input = ListNode(1, ListNode(2, ListNode(3, ListNode(4, ListNode(5)))))
-let output = Solution4().reverseList(input)
+let output = Solution3().reverseList(input)
 print(output?.describtion ?? "")
